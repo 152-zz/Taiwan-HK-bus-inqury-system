@@ -71,14 +71,17 @@ def HK_bus(busroute = 'A28',direction = 'inbound'):
     '''
 def coming_bus(idx = '001825',busroute='A28'):
     import json
-    url4 = ("https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/"+idx+'/'+busroute)
-    response4 = requests.get(url4)
-    text_content4 = response4.text
-    content4_json = json.loads(text_content4)
-
-    eta = content4_json["data"][0]["eta"]
-    print("Estimated time of arrival for the next bus at the stop:", eta)
-    return eta
+    try:
+        url4 = ("https://rt.data.gov.hk/v2/transport/citybus/eta/CTB/"+idx+'/'+busroute)
+        response4 = requests.get(url4)
+        text_content4 = response4.text
+        content4_json = json.loads(text_content4)
+        
+        eta = content4_json["data"][0]["eta"]
+        print("Estimated time of arrival for the next bus at the stop:", eta)
+        return eta
+    except:
+        return 'None'
 
 Q1,Q2 = HK_bus()
 Q3 = coming_bus()
